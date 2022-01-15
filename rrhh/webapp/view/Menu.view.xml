@@ -1,0 +1,22 @@
+<mvc:View controllerName="ns.rrhh.controller.Menu" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m">
+				<Page id="page" title="{i18n>menuPrincipal}">
+					<content>
+						<Panel id="_IDGenPanel1" headerText="{i18n>empleados}" expandable="true" expanded="true">
+							<GenericTile id="_IDGenGenericTile1" headerImage="sap-icon://add-employee" class="sapUiTinyMarginBegin sapUiTinyMarginTop" press="navToCreateEmployee">
+								<TileContent id="_IDGenTileContent1" footer="{i18n>crearEmpleado}">
+								</TileContent>
+							</GenericTile>
+							<GenericTile id="_IDGenGenericTile2" headerImage="sap-icon://employee-lookup" class="sapUiTinyMarginBegin sapUiTinyMarginTop" press="navToShowEmployee">
+								<TileContent id="_IDGenTileContent2" footer="{i18n>verEmpleados}">
+								</TileContent>
+							</GenericTile>
+						</Panel>
+						<Panel id="_IDGenPanel2" headerText="{i18n>pedidos}"  expandable="true" expanded="true">
+							<GenericTile id="linkFirmarPedido"  headerImage="sap-icon://signature" class="sapUiTinyMarginBegin sapUiTinyMarginTop"  url="https://21a9a237trial-dev-employee-approuter.cfapps.us10.hana.ondemand.com/employee/index.html">
+								<TileContent id="_IDGenTileContent3" footer="{i18n>firmarPedido}">
+								</TileContent>
+							</GenericTile>
+						</Panel>
+					</content>
+				</Page>
+</mvc:View>

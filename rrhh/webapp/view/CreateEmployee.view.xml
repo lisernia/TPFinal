@@ -1,0 +1,123 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" 
+controllerName="ns.rrhh.controller.CreateEmployee"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:form="sap.ui.layout.form" xmlns:u="sap.ui.unified">
+			<Page id="_IDGenPage1" title="{i18n>crearEmpleado}">
+				<content>
+					<NavContainer id="wizardNavContainer">
+						<pages>
+							<Page id="_IDGenPage2"	showHeader="false">
+								<content>
+									<Wizard id="wizard" complete="wizardCompletedHandler">
+										<WizardStep id="typeEmployeeStep" title="{i18n>tipoEmpleado}"
+													validated="false">
+											<MessageStrip id="_IDGenMessageStrip1" class="sapUiSmallMarginBottom"
+													text="{i18n>step1ms}"
+													showIcon="true"/>
+											<FlexBox id="_IDGenFlexBox1" alignItems="Center" justifyContent="Center">
+												<Button id="_IDGenButton1" text="{i18n>interno}" press="toStep2" class="sapUiSmallMarginEnd">
+													<customData>
+														<core:CustomData key="typeEmployee" value="interno"></core:CustomData>
+													</customData>
+												</Button>
+												<Button id="_IDGenButton2" text="{i18n>autonomo}" press="toStep2" class="sapUiSmallMarginEnd">
+													<customData>
+														<core:CustomData key="typeEmployee" value="autonomo"></core:CustomData>
+													</customData>
+												</Button>
+												<Button id="_IDGenButton3" text="{i18n>gerente}" press="toStep2">
+													<customData>
+														<core:CustomData key="typeEmployee" value="gerente"></core:CustomData>
+													</customData>
+												</Button>
+											</FlexBox>
+										</WizardStep>
+										<WizardStep id="dataEmployeeStep"
+													validated="false"
+													title="{i18n>datosEmpleado}">
+											<MessageStrip id="_IDGenMessageStrip2" class="sapUiSmallMarginBottom"
+													text="{i18n>step2ms}" showIcon="true"/>
+											<form:SimpleForm id="_IDGenSimpleForm1"
+													editable="true">
+				                                <Label id="_IDGenLabel1" text="{i18n>nombre}" required="true"/>
+												<Input id="_IDGenInput1" valueState="{/_FirstNameState}" change="dataEmployeeValidation" value="{/FirstName}"/>
+												<Label id="_IDGenLabel2" text="{i18n>apellidos}" required="true"/>
+												<Input id="_IDGenInput2" valueState="{/_LastNameState}" change="dataEmployeeValidation" value="{/LastName}"/>
+												<Label id="_IDGenLabel3" text="{= ${/_type} === 'autonomo' ? ${i18n>CIF} : ${i18n>DNI}}" required="true"/>
+												<Input id="_IDGenInput3" value="{/Dni}" valueState="{/_DniState}" change="validateDNI"></Input>
+												<Label id="_IDGenLabel4" text="{= ${/_type} === 'autonomo' ? ${i18n>precioDiario} : ${i18n>salarioBrutoAnual}}"/>
+												<VBox id="_IDGenVBox1">
+													<Slider id="_IDGenSlider1" value="{/_Salary}"
+														min="12000" 
+														max="80000"
+														step="1000" inputsAsTooltips="true" showAdvancedTooltip="true" enableTickmarks="true"
+														 width="100%" progress="false" class="sapUiSmallMarginBottom" 
+														 visible="{=  ${/_type} === 'interno'}">
+														<ResponsiveScale id="_IDGenResponsiveScale1" tickmarksBetweenLabels="100"/>
+													</Slider>
+													<Slider id="_IDGenSlider2" value="{/_Salary}"
+														min="100" 
+														max="2000"
+														step="100" inputsAsTooltips="true" showAdvancedTooltip="true" enableTickmarks="true"
+														 width="100%" progress="false" class="sapUiSmallMarginBottom"
+														 visible="{=  ${/_type} === 'autonomo'}">
+														<ResponsiveScale id="_IDGenResponsiveScale2" tickmarksBetweenLabels="100"/>
+													</Slider>
+													<Slider id="_IDGenSlider3" value="{/_Salary}"
+														min="50000" 
+														max="200000"
+														step="1000" inputsAsTooltips="true" showAdvancedTooltip="true" enableTickmarks="true"
+														 width="100%" progress="false" class="sapUiSmallMarginBottom"
+														 visible="{=  ${/_type} === 'gerente'}">
+														<ResponsiveScale id="_IDGenResponsiveScale3" tickmarksBetweenLabels="100"/>
+													</Slider>
+												</VBox>
+												<Label id="_IDGenLabel5" text="{i18n>fechaIncorporacion}" required="true"></Label>
+												<DatePicker id="_IDGenDatePicker1" dateValue="{/CreationDate}" valueState="{/_CreationDateState}" change="dataEmployeeValidation"></DatePicker>
+											</form:SimpleForm>
+										</WizardStep>
+										<WizardStep id="OptionalInfoStep"
+													validated="true"
+													activate="optionalStepActivation"
+													title="{i18n>infoAdicional}">
+											<MessageStrip id="_IDGenMessageStrip3" class="sapUiSmallMarginBottom"
+													text="{i18n>step3ms}"
+													showIcon="true"/>
+											<Label id="_IDGenLabel6" text="{i18n>comentario}" width="100%"></Label>
+											<TextArea id="_IDGenTextArea1" value="{/Comments}" width="100%"></TextArea>
+											<UploadCollection
+													id="UploadCollection"
+													maximumFilenameLength="55"
+													maximumFileSize="10"
+													multiple="true"
+													uploadUrl="/sap/opu/odata/sap/ZEMPLOYEES_SRV/Attachments"
+													sameFilenameAllowed="true"
+													instantUpload="false"
+													change="onChange"
+													beforeUploadStarts="onBeforeUploadStart"
+													noDataDescription="{i18n>Arrastrarficheros}" />
+
+										</WizardStep>
+									</Wizard>
+								</content>
+								<footer>
+									<OverflowToolbar id="_IDGenOverflowToolbar1">
+										<ToolbarSpacer id="_IDGenToolbarSpacer1"/>
+										<Button id="_IDGenButton4" text="{i18n>cancel}" press="onCancel"/>
+									</OverflowToolbar>
+								</footer>
+							</Page>
+							<Page id="ReviewPage" title="{i18n>resumen}">
+								<core:Fragment fragmentName="ns.rrhh.fragment.ReviewPage" type="XML"/>
+								<footer>
+									<Toolbar id="_IDGenToolbar1">
+										<ToolbarSpacer id="_IDGenToolbarSpacer2"></ToolbarSpacer>
+										<Button id="_IDGenButton5" text="{i18n>guardar}" press="onSaveEmployee"></Button>
+										<Button id="_IDGenButton6" text="{i18n>cancelar}" press="onCancel"></Button>
+									</Toolbar>
+								</footer>
+							</Page>
+						</pages>
+					</NavContainer>
+				</content>
+			</Page>
+</mvc:View>
