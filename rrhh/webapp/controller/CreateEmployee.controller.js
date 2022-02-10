@@ -72,13 +72,15 @@ sap.ui.define([
 	
 	//Función para validar el dni
 	function validateDNI(oEvent){
-		//Se comprueba si es dni o cif. En caso de dni, se comprueba su valor. Para ello se comprueba que el tipo no sea "autonomo"
+		//Se comprueba si es dni o cif. En caso de dni, se comprueba su valor.
+        // Para ello se comprueba que el tipo no sea "autonomo"
 		if(this._model.getProperty("_type") !== "autonomo"){
 			var dni = oEvent.getParameter("value");
 			var number;
 			var letter;
 			var letterList;
 			var regularExp = /[0-9]/;
+            ///^\d{8}(?:[-\s]\d{4})?$/;
 			//Se comprueba que el formato es válido
 			if(regularExp.test (dni) === true){
 				//Número
